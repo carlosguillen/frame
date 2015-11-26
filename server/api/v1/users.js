@@ -138,7 +138,8 @@ internals.applyRoutes = function (server, next) {
                 payload: {
                     username: Joi.string().token().lowercase().required(),
                     password: Joi.string().required(),
-                    email: Joi.string().email().lowercase().required()
+                    email: Joi.string().email().lowercase().required(),
+                    metadata: Joi.object()
                 }
             },
             pre: [
@@ -193,8 +194,9 @@ internals.applyRoutes = function (server, next) {
             const username = request.payload.username;
             const password = request.payload.password;
             const email = request.payload.email;
+            const metadata = request.payload.metadata;
 
-            User.create(username, password, email, (err, user) => {
+            User.create(username, password, email, metadata, (err, user) => {
 
                 if (err) {
                     return reply(err);
@@ -218,7 +220,8 @@ internals.applyRoutes = function (server, next) {
                 payload: {
                     isActive: Joi.boolean().required(),
                     username: Joi.string().token().lowercase().required(),
-                    email: Joi.string().email().lowercase().required()
+                    email: Joi.string().email().lowercase().required(),
+                    metadata: Joi.object()
                 }
             },
             pre: [
@@ -280,6 +283,10 @@ internals.applyRoutes = function (server, next) {
                     email: request.payload.email
                 }
             };
+
+            if (request.payload.metadata) {
+                update.$set.metadata = request.payload.metadata;
+            }
 
             User.findByIdAndUpdate(id, update, (err, user) => {
 

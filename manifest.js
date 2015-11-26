@@ -11,7 +11,7 @@ const criteria = {
 
 
 const manifest = {
-    $meta: 'This file defines the plot device.',
+    $meta: 'This file defines the UserManager API',
     server: {
         debug: {
             request: ['error']
@@ -27,6 +27,17 @@ const manifest = {
         labels: ['web']
     }],
     plugins: {
+        'good': {
+            reporters: [{
+                reporter: require('good-console'),
+                events: { response: '*' },
+                json: false
+            }, {
+                reporter: require('good-file'),
+                events: { response: '*' },
+                config: './logs/logfile.log',
+                rotate: 'daily'
+            }] },
         'hapi-auth-basic': {},
         'lout': {},
         'inert': {},
@@ -44,10 +55,12 @@ const manifest = {
                 AuthAttempt: './server/models/auth-attempt',
                 Session: './server/models/session',
                 Status: './server/models/status',
-                User: './server/models/user'
+                User: './server/models/user',
+                Facility: './server/models/facility'
             },
             autoIndex: Config.get('/hapiMongoModels/autoIndex')
         },
+        './server/healthchecks': {},
         './server/auth': {},
         './server/mailer': {},
         './server/api/v1/accounts': [{ routes: { prefix: '/api/v1' } }],
@@ -62,6 +75,7 @@ const manifest = {
         './server/api/v1/signup': [{ routes: { prefix: '/api/v1' } }],
         './server/api/v1/statuses': [{ routes: { prefix: '/api/v1' } }],
         './server/api/v1/users': [{ routes: { prefix: '/api/v1' } }],
+        './server/api/v1/facilities': [{ routes: { prefix: '/api/v1' } }],
         './server/web/index': {}
     }
 };

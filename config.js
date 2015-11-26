@@ -10,8 +10,8 @@ const criteria = {
 
 
 const config = {
-    $meta: 'This file defines the UserManager API',
-    projectName: '{{projectName}}',
+    $meta: 'This file configures the UserManager API.',
+    projectName: 'UserManager',
     port: {
         web: {
             $filter: 'env',
@@ -33,34 +33,34 @@ const config = {
         },
         test: {
             mongodb: {
-                url: '{{mongodbUrl}}-test'
+                url: 'mongodb://localhost:27017/usermanager-test'
             },
             autoIndex: true
         },
         $default: {
             mongodb: {
-                url: '{{mongodbUrl}}'
+                url: 'mongodb://localhost:27017/usermanager'
             },
             autoIndex: true
         }
     },
     nodemailer: {
-        host: '{{smtpHost}}',
-        port: {{smtpPort}},
+        host: 'smtp.gmail.com',
+        port: 465,
         secure: true,
         auth: {
-            user: '{{smtpUsername}}',
-            pass: '{{smtpPassword}}'
+            user: 'root@localhost',
+            pass: 'root'
         }
     },
     system: {
         fromAddress: {
-            name: '{{projectName}}',
-            address: '{{systemEmail}}'
+            name: 'UserManager',
+            address: 'root@localhost'
         },
         toAddress: {
-            name: '{{projectName}}',
-            address: '{{systemEmail}}'
+            name: 'UserManager',
+            address: 'root@localhost'
         }
     }
 };
