@@ -19,11 +19,11 @@ if (process.env.NODE_ENV === 'test') {
     const source = Fs.readFileSync(configTemplatePath, options);
     const configTemplate = Handlebars.compile(source);
     const context = {
-        projectName: 'Frame',
-        mongodbUrl: 'mongodb://localhost:27017/frame',
+        projectName: 'UserManager',
+        mongodbUrl: 'mongodb://localhost:27017/usermanager',
         rootEmail: 'root@root',
         rootPassword: 'root',
-        systemEmail: 'sys@tem',
+        systemEmail: 'root@localhost',
         smtpHost: 'smtp.gmail.com',
         smtpPort: 465,
         smtpUsername: '',
@@ -37,15 +37,15 @@ if (process.env.NODE_ENV === 'test') {
 Async.auto({
     projectName: function (done) {
 
-        Promptly.prompt('Project name: (Frame)', { default: 'Frame' }, done);
+        Promptly.prompt('Project name: (UserManager)', { default: 'UserManager' }, done);
     },
     mongodbUrl: ['projectName', function (done, results) {
 
         const promptOptions = {
-            default: 'mongodb://localhost:27017/frame'
+            default: 'mongodb://localhost:27017/usermanager'
         };
 
-        Promptly.prompt('MongoDB URL: (mongodb://localhost:27017/frame)', promptOptions, done);
+        Promptly.prompt('MongoDB URL: (mongodb://localhost:27017/usermanager)', promptOptions, done);
     }],
     testMongo: ['rootPassword', (done, results) => {
 
@@ -62,11 +62,11 @@ Async.auto({
     }],
     rootEmail: ['mongodbUrl', function (done, results) {
 
-        Promptly.prompt('Root user email:', done);
+        Promptly.prompt('Root user email: (root@localhost)', { default: 'root@localhost' }, done);
     }],
     rootPassword: ['rootEmail', function (done, results) {
 
-        Promptly.password('Root user password:', { default: null }, done);
+        Promptly.password('Root user password: (root)', { default: 'root' }, done);
     }],
     systemEmail: ['rootPassword', function (done, results) {
 
