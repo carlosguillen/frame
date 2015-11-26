@@ -1,0 +1,44 @@
+{
+  "name": "user_manager",
+  "version": "5.0.0",
+  "description": "A user manager system API",
+  "main": "index.js",
+  "scripts": {
+    "setup": "./setup.js",
+    "start": "nodemon -e js,md ./server.js",
+    "test": "lab -c -L -t 90 -v",
+    "test-cover": "lab -c -r html -o ./test/artifacts/coverage.html && open ./test/artifacts/coverage.html"
+  },
+  "author": "emcconnected",
+  "dependencies": {
+    "async": "^1.5.0",
+    "bcrypt": "^0.8.5",
+    "boom": "^2.10.1",
+    "confidence": "^1.4.2",
+    "glue": "^2.4.0",
+    "handlebars": "^4.0.5",
+    "hapi": "^11.1.2",
+    "hapi-auth-basic": "^3.0.0",
+    "hapi-mongo-models": "^3.0.0",
+    "hoek": "^2.16.3",
+    "inert": "^3.2.0",
+    "jade": "^1.11.0",
+    "joi": "^6.10.0",
+    "lout": "^7.2.0",
+    "mongodb": "^2.0.49",
+    "node-uuid": "^1.4.7",
+    "nodemailer": "^1.10.0",
+    "nodemailer-markdown": "^1.0.0",
+    "object-assign": "^4.0.1",
+    "slug": "^0.9.1",
+    "vision": "^3.0.0",
+    "visionary": "^3.0.1"
+  },
+  "devDependencies": {
+    "code": "^2.0.1",
+    "lab": "^7.3.0",
+    "nodemon": "^1.8.1",
+    "promptly": "^0.2.1",
+    "proxyquire": "^1.7.3"
+  }
+}
