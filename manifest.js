@@ -61,7 +61,7 @@ const manifest = {
         './server/api/v1/sessions': [{ routes: { prefix: '/api/v1' } }],
         './server/api/v1/signup': [{ routes: { prefix: '/api/v1' } }],
         './server/api/v1/statuses': [{ routes: { prefix: '/api/v1' } }],
-        './server/api/v1/users': {},
+        './server/api/v1/users': [{ routes: { prefix: '/api/v1' } }],
         './server/web/index': {}
     }
 };
