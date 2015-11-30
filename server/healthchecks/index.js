@@ -8,7 +8,7 @@ const internals = {};
 
 
 let buildNumber;
-let version;
+const version = require('../../package').version;
 
 
 internals.pingHandler = function (request, reply) {
@@ -33,18 +33,8 @@ internals.mainHandler = function (request, reply) {
 
 exports.register = function (plugin, options, next) {
 
-    if (!options.packFile) {
-        options.packFile = '../../package.json';
-    }
     if (!options.buildFile) {
         options.buildFile = '../../build_number.json';
-    }
-
-    try {
-        version = require(path.join(options.packFile)).version;
-    }
-    catch (e) {
-        version = 'n/a';
     }
 
     try {

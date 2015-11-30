@@ -115,7 +115,7 @@ lab.experiment('Healthchecks Plugin with missing files', () => {
 
             Code.expect(response.statusCode).to.equal(200);
             Code.expect(response.result).to.be.an.object();
-            Code.expect(response.result.version).to.equal('n/a');
+            Code.expect(response.result.version).to.be.a.string();
             Code.expect(response.result.started).to.be.a.date();
             Code.expect(response.result.uptime).to.be.a.string();
             Code.expect(response.result.build).to.equal('n/a');
