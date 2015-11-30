@@ -376,7 +376,7 @@ lab.experiment('Users Plugin Create', () => {
             callback();
         };
 
-        stub.User.create = function (username, password, email, callback) {
+        stub.User.create = function (username, password, email, metadata, callback) {
 
             callback(Error('create failed'));
         };
@@ -396,7 +396,7 @@ lab.experiment('Users Plugin Create', () => {
             callback();
         };
 
-        stub.User.create = function (username, password, email, callback) {
+        stub.User.create = function (username, password, email, metadata, callback) {
 
             callback(null, {});
         };
@@ -564,6 +564,30 @@ lab.experiment('Users Plugin Update', () => {
         };
 
         server.inject(request, (response) => {
+
+            Code.expect(response.statusCode).to.equal(200);
+            Code.expect(response.result).to.be.an.object();
+
+            done();
+        });
+    });
+
+    lab.test('it updates a document successfully with metadata', (done) => {
+
+        const metadRequest = request;
+        Object.assign(metadRequest.payload, { metadata: { minutes: 1000 } });
+
+        stub.User.findOne = function (conditions, callback) {
+
+            callback();
+        };
+
+        stub.User.findByIdAndUpdate = function (id, update, callback) {
+
+            callback(null, {});
+        };
+
+        server.inject(metadRequest, (response) => {
 
             Code.expect(response.statusCode).to.equal(200);
             Code.expect(response.result).to.be.an.object();

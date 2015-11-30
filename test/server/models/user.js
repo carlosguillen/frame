@@ -81,7 +81,7 @@ lab.experiment('User Class Methods', () => {
 
     lab.test('it returns a new instance when create succeeds', (done) => {
 
-        User.create('ren', 'bighouseblues', 'ren@stimpy.show', (err, result) => {
+        User.create('ren', 'bighouseblues', 'ren@stimpy.show', { 'minutes': 10000, console: true }, (err, result) => {
 
             Code.expect(err).to.not.exist();
             Code.expect(result).to.be.an.instanceOf(User);
@@ -102,7 +102,7 @@ lab.experiment('User Class Methods', () => {
             callback(Error('insert failed'));
         };
 
-        User.create('ren', 'bighouseblues', 'ren@stimpy.show', (err, result) => {
+        User.create('ren', 'bighouseblues', 'ren@stimpy.show', {}, (err, result) => {
 
             Code.expect(err).to.be.an.object();
             Code.expect(result).to.not.exist();
@@ -119,7 +119,7 @@ lab.experiment('User Class Methods', () => {
         Async.auto({
             user: function (cb) {
 
-                User.create('stimpy', 'thebigshot', 'stimpy@ren.show', cb);
+                User.create('stimpy', 'thebigshot', 'stimpy@ren.show', {}, cb);
             },
             username: ['user', function (cb, results) {
 
@@ -222,7 +222,7 @@ lab.experiment('User Class Methods', () => {
         Async.auto({
             user: function (cb) {
 
-                User.create('horseman', 'eathay', 'horse@man.show', (err, result) => {
+                User.create('horseman', 'eathay', 'horse@man.show', {}, (err, result) => {
 
                     Code.expect(err).to.not.exist();
                     Code.expect(result).to.be.an.instanceOf(User);
@@ -350,18 +350,6 @@ lab.experiment('User Instance Methods', () => {
     lab.test('it returns successful when hydrating roles', (done) => {
 
         const realAccountFindById = stub.Account.findById;
-        stub.Admin.findById = function (id, callback) {
-
-            callback(null, new Admin({
-                _id: '953P150D35',
-                name: {
-                    first: 'Ren',
-                    last: 'Höek'
-                }
-            }));
-        };
-
-        const realAdminFindById = stub.Admin.findById;
         stub.Account.findById = function (id, callback) {
 
             callback(null, new Account({
@@ -370,6 +358,18 @@ lab.experiment('User Instance Methods', () => {
                     first: 'Stimpson',
                     middle: 'J',
                     last: 'Cat'
+                }
+            }));
+        };
+
+        const realAdminFindById = stub.Admin.findById;
+        stub.Admin.findById = function (id, callback) {
+
+            callback(null, new Admin({
+                _id: '953P150D35',
+                name: {
+                    first: 'Ren',
+                    last: 'Höek'
                 }
             }));
         };

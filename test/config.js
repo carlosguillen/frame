@@ -21,7 +21,7 @@ lab.experiment('Config', () => {
 
     lab.test('it gets config meta data', (done) => {
 
-        Code.expect(Config.meta('/')).to.match(/this file configures the plot device/i);
+        Code.expect(Config.meta('/')).to.match(/This file configures the UserManager API/i);
 
         done();
     });
